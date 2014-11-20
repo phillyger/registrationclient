@@ -1,0 +1,46 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">Login</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form name="form"
+          role="form"
+          class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+          ng-submit="doLogin()"
+          novalidate>
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username</span>
+          <input type="email" name="username" ng-model="loginData.username" required>
+          <!--Implement ngMessages directive in Angular 1.3-->
+          <!--Removes the need to have error class below implementing ng-show -->
+          <!--<div class="error-messages" ng-if="interacted(form.username)" ng-messages="form.username.$error">-->
+            <!--<div ng-message="required">Your e-mail is required to be at least 5 characters.</div>-->
+            <!--<div ng-message="minlength">Your e-mail is required to be at least 5 characters.</div>-->
+            <!--<div ng-message="maxlength">Your e-mail cannot be longer than 100 characters.</div>-->
+          <!--</div>-->
+
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" name="password" ng-model="loginData.password" required>
+
+          <!--Implement ngMessages directive in Angular 1.3-->
+          <!--Removes the need to have error class below implementing ng-show -->
+          <!--<div class="error-messages" ng-if="interacted(form.password)" ng-messages="form.password.$error">-->
+            <!--<div ng-message="required">Your password is required to be at least 5 characters.</div>-->
+            <!--<div ng-message="minlength">Your password is required to be at least 5 characters.</div>-->
+            <!--<div ng-message="maxlength">Your password cannot be longer than 100 characters.</div>-->
+          <!--</div>-->
+
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" ng-disabled="form.$invalid" type="submit">Log in</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</div>
