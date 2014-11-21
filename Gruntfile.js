@@ -42,9 +42,37 @@ module.exports = function (grunt) {
           ENV: {
             name: 'development',
             apiEndpoint: 'http://dev.yoursite.com:10000/'
+          },
+          URL_ENDPOINTS: {
+            baseUrl: 'http://localhost:8099/app',
+
+            secureVerifyUrl: 'http://localhost:8099/app' + '/rest/secure/verify',
+
+            available: 'http://localhost:8099/app' + '/rest/available',
+
+            secureAccountUrl: 'http://localhost:8099/app' +'/rest/secure/account/',
+
+            accountUrl: 'http://localhost:8099/app' +'/rest/account/',
+
+            allQuestionsUrl: 'http://localhost:8099/app' +'/rest/questions',
+
+            activateUrl: 'http://localhost:8099/app' +'/rest/activate',
+
+            authenticateUrl: 'http://localhost:8099/app' +'/rest/authenticate',
+
+            changePasswordUrl: 'http://localhost:8099/app' +'/rest/secure/account/change_password',
+
+            resetPasswordUrl:'http://localhost:8099/app' +'/rest/account/reset_password',
+
+            registerUrl: 'http://localhost:8099/app'+ '/rest/register'
+          },
+          AUTH_TOKEN_INFO: {
+
+            key: 'x-md-token'
           }
         }
       },
+
       production: {
         constants: {
           ENV: {
@@ -155,7 +183,7 @@ module.exports = function (grunt) {
       }
     },
 
-    
+
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
