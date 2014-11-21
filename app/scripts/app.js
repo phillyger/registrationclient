@@ -6,7 +6,17 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app=angular.module('RegistrationClientApp', ['ionic', 'config', 'ui.router']);
+var app=angular.module('RegistrationClientApp',
+  [
+    'ionic',
+    'config',
+    'ui.router',
+    'http-auth-interceptor',
+    'ngMessages',
+    'ui.bootstrap',
+    'ui.mask',
+  ]
+);
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
