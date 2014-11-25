@@ -17,3 +17,9 @@
   border-color:transparent transparent maroon;
   border-width:5px;
 }
+
+
+#modal {
+  background-color: #ffffff;
+  z-index: 10000;
+}

@@ -1,0 +1,146 @@
+<ion-nav-bar class="bar-calm" animation="nav-title-slide-ios7">
+  <h1 class="title">Verify</h1>
+</ion-nav-bar>
+<!--<ion-nav-view class="slide-left-right">-->
+  <ion-view title="Verify">
+    <ion-content has-header="true" padding="true" scroll="true">
+
+      <form name="verify_form"
+            role="form"
+            novalidate
+            class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+            ng-submit="verify()">
+
+
+        <!-- MEMBER ID -->
+        <div class="form-group">
+          <label>Member ID</label>
+          <input type="text"
+                 class="form-control"
+                 name="memberId"
+                 ng-model="vm.memberId"
+                 ng-blur=""
+                 ng-minlength="4"
+                 ng-maxlength="100"
+                 required>
+
+          <!--Implement ngMessages directive in Angular 1.3-->
+          <!--Removes the need to have error class below implementing ng-show -->
+          <div class="error-messages" ng-if="interacted(verify_form.memberId)" ng-messages="verify_form.memberId.$error"
+               ng-messages-include="memberId-messages">
+          </div>
+        </div>
+
+        <!-- FIRST NAME -->
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text"
+                 class="form-control"
+                 name="firstname"
+                 ng-model="vm.firstName"
+                 ng-minlength="1"
+                 ng-maxlength="100"
+                 required>
+
+
+          <!--Implement ngMessages directive in Angular 1.3-->
+          <!--Removes the need to have error class below implementing ng-show -->
+          <div class="error-messages" ng-if="interacted(verify_form.firstname)"
+               ng-messages="verify_form.firstname.$error"
+               ng-messages-include="firstname-messages">
+          </div>
+
+        </div>
+
+        <!-- LAST NAME -->
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text"
+                 class="form-control"
+                 name="lastname"
+                 ng-model="vm.lastName"
+                 ng-minlength="1"
+                 ng-maxlength="100"
+                 required>
+
+          <!--Implement ngMessages directive in Angular 1.3-->
+          <!--Removes the need to have error class below implementing ng-show -->
+          <div class="error-messages" ng-if="interacted(verify_form.lastname)" ng-messages="verify_form.lastname.$error"
+               ng-messages-include="lastname-messages">
+          </div>
+
+        </div>
+
+        <!-- ZIP -->
+        <div class="form-group">
+          <label>Zip Code</label>
+          <input type="text"
+                 class="form-control"
+                 name="zip"
+                 ui-mask="99999"
+                 ng-model="vm.zip"
+                 ng-minlength="5"
+                 ng-maxlength="10"
+                 ng-pattern="zipRegex"
+                 required>
+
+          <!--Implement ngMessages directive in Angular 1.3-->
+          <!--Removes the need to have error class below implementing ng-show -->
+          <div class="error-messages" ng-if="interacted(verify_form.zip)" ng-messages="verify_form.zip.$error"
+               ng-messages-include="zip-messages">
+          </div>
+
+        </div>
+
+        <!-- D.O.B -->
+        <div class="form-group">
+          <label for="input_dob">Date of Birth</label>
+          <input class="form-control"
+                 type="date"
+                 name="dob"
+                 id="input_dob"
+                 ng-model="dob"
+                 required/>
+
+          <div class="error-messages" ng-if="interacted(verify_form.dob)" ng-messages="verify_form.dob.$error"
+               ng-messages-include="birth-date-messages">
+          </div>
+        </div>
+
+
+        <button type="submit" ng-disabled="verify_form.$invalid" class="btn btn-primary">Verify</button>
+
+      </form>
+    </ion-content>
+  </ion-view>
+<!--</ion-nav-view>-->
+
+
+<script type="text/ng-template" id="memberId-messages">
+  <div ng-message="required">Your Member ID is required.</div>
+  <div ng-message="minlength">Your Member ID is required to be at least 4 characters</div>
+  <div ng-message="maxlength">Your Member ID cannot be longer than 50 characters</div>
+</script>
+
+<script type="text/ng-template" id="firstname-messages">
+  <div ng-message="required">Your first name is required.</div>
+  <div ng-message="minlength">Your first name is required to be at least 1 character</div>
+  <div ng-message="maxlength">Your first name cannot be longer than 100 characters</div>
+</script>
+
+<script type="text/ng-template" id="lastname-messages">
+  <div ng-message="required">Your last name is required.</div>
+  <div ng-message="minlength">Your last name is required to be at least 1 character</div>
+  <div ng-message="maxlength">Your last name cannot be longer than 100 characters</div>
+</script>
+
+<script type="text/ng-template" id="zip-messages">
+  <div ng-message="required">Your zip is required.</div>
+  <div ng-message="minlength">Your zip is required to be at least 5 character</div>
+  <div ng-message="maxlength">Your zip cannot be longer than 10 characters</div>
+</script>
+
+
+<script type="text/ng-template" id="birth-date-messages">
+  <div ng-message="required">Your birth date is either blank or has an incorrect value</div>
+</script>

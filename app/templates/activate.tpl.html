@@ -1,0 +1,50 @@
+<ion-nav-bar class="bar-calm" animation="nav-title-slide-ios7">
+  <h1 class="title">Activate</h1>
+</ion-nav-bar>
+<ion-view title="Activate">
+  <ion-content has-header="true" padding="true" scroll="false">
+    <div>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+
+          <div class="alert alert-danger" ng-show="activationError">
+            <strong>Activation failed!</strong> Please check your credentials and try again.
+          </div>
+          <form name="form" role="form" novalidate
+                class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength">
+            <div class="form-group">
+              <label for="username">Login</label>
+              <input ng-disabled=true class="form-control" id="username" name="username" ng-model="vm.username" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" ng-model="vm.password" required>
+
+
+              <div class="error" ng-show="form.password.$dirty && form.password.$invalid">
+                <small class="error" ng-show="form.password.$error.required">
+                  Your password is required.
+                </small>
+                <small class="error" ng-show="form.password.$error.minlength">
+                  Your password is required to be at least 5 characters
+                </small>
+                <small class="error" ng-show="form.password.$error.maxlength">
+                  Your password cannot be longer than 50 characters
+                </small>
+              </div>
+              <password-strength-bar password-to-check="password"></password-strength-bar>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="activate()">Activate
+            </button>
+          </form>
+          <p></p>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+

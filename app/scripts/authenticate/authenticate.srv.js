@@ -50,7 +50,7 @@ angular.module('RegistrationClientApp')
             // check boolean flag to see if user is verified.
             var result = response.data.data;
 
-            return (result['verified'] === true) ? $state.go('main') : $state.go('verify');
+            return (result['verified'] === true) ? $state.go('app.main') : $state.go('app.verify');
 
           });
       },

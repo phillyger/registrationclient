@@ -1,0 +1,262 @@
+<ion-header-bar class="bar bar-header bar-calm">
+      <h1 class="title">Register</h1>
+      <button class="button icon" ng-click="closeRegisterModal()">Cancel</button>
+    </ion-header-bar>
+<ion-view title="Register">
+    <ion-content has-header="true" padding="true" scroll="true">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+
+        <form name="reg_form"
+              role="form"
+              novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+              ng-submit="register()">
+
+          <!-- EMAIL/USERNAME -->
+          <div class="form-group">
+            <label>E-mail/user Name</label>
+            <input type="email" class="form-control"
+                   name="username"
+                   ng-model="vm.username"
+                   ng-minlength="5"
+                   ng-maxlength="100"
+                   placeholder="Email address"
+                   ng-model-options="{updateOn: 'default blur', debounce: { default: 1000, blur: 0} }"
+
+                   record-availability-validator
+                   required>
+            <!--Implement ngMessages directive in Angular 1.3-->
+            <!--Removes the need to have error class below implementing ng-show -->
+            <div class="error-messages" ng-if="interacted(reg_form.username)" ng-messages="reg_form.username.$error"
+                 ng-messages-include="username-messages">
+              <div ng-message="recordLoading">Checking database...</div>
+              <div ng-message="recordAvailable">The email address is already in use...</div>
+            </div>
+
+          </div>
+
+          <!-- FIRST NAME -->
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text"
+                   class="form-control"
+                   name="firstname"
+                   ng-model="vm.firstName"
+                   ng-minlength="1"
+                   ng-maxlength="100"
+                   placeholder="First Name"
+                   required>
+
+            <!--Implement ngMessages directive in Angular 1.3-->
+            <!--Removes the need to have error class below implementing ng-show -->
+            <div class="error-messages" ng-if="interacted(reg_form.firstname)" ng-messages="reg_form.firstname.$error"
+                 ng-messages-include="firstname-messages">
+            </div>
+
+
+          </div>
+
+          <!-- LAST NAME -->
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text"
+                   class="form-control"
+                   name="lastname"
+                   ng-model="vm.lastName"
+                   ng-minlength=1
+                   ng-maxlength=100
+                   placeholder="Last Name"
+                   required>
+
+            <!--Implement ngMessages directive in Angular 1.3-->
+            <!--Removes the need to have error class below implementing ng-show -->
+            <div class="error-messages" ng-if="interacted(reg_form.lastname)" ng-messages="reg_form.lastname.$error"
+                 ng-messages-include="lastname-messages">
+            </div>
+
+          </div>
+
+          <!-- NEW PASSWORD -->
+          <div class="form-group">
+            <label>New password</label>
+
+            <input ng-model='vm.password'
+                   type="password"
+                   name='password'
+                   placeholder='Password'
+                   class="form-control"
+                   ng-minlength="5"
+                   ng-maxlength="50"
+                   equals="{{confirmPassword}}"
+                   ng-model-options="{updateOn: 'blur'}"
+                   required>
+
+            <!--Implement ngMessages directive in Angular 1.3-->
+            <!--Removes the need to have error class below implementing ng-show -->
+            <div class="error-messages" ng-if="interacted(reg_form.password)" ng-messages="reg_form.password.$error"
+                 ng-messages-include="password-messages">
+            </div>
+
+            <password-strength-bar password-to-check="vm.password"></password-strength-bar>
+          </div>
+
+          <!-- NEW PASSWORD CONFIRMATION-->
+          <div class="form-group">
+            <label>New password confirmation</label>
+            <input type="password"
+                   class="form-control"
+                   name="confirmPassword"
+                   ng-model="confirmPassword"
+                   ng-minlength="5"
+                   ng-maxlength="50"
+                   placeholder='Confirm Password'
+                   equals="{{vm.password}}"
+                   ng-model-options="{updateOn: 'blur'}"
+                   required>
+
+            <div class="error-messages" ng-if="interacted(reg_form.confirmPassword)"
+                 ng-messages="reg_form.confirmPassword.$error"
+                 ng-messages-include="password-messages">
+              <div ng-message="required">Your confirmation password is required.</div>
+              <div ng-message="equals">Your passwords don't match.</div>
+            </div>
+
+          </div>
+
+
+          <!-- SECURITY QUESTIONS -->
+          <!-- NESTED FORM -->
+          <ng-form name="securityQuestions">
+
+            <div class="form-group">
+
+              <label>Security Questions</label>
+
+              <div class="error-messages" ng-show="reg_form.securityQuestions.$invalid">Please complete the 3 security
+                questions below.
+              </div>
+
+
+              <label>Security Questions #1</label>
+
+              <div>
+
+                <select class="form-control"
+                        name="question_1"
+                        ng-model="questionSelections.question_1"
+                        ng-options="q.question for q in allQuestions  | filter:optionFilter(questionSelections.question_1)"
+                        required>
+                  <option value="">Choose...</option>
+                </select>
+
+                <br/>
+                <input type="text"
+                       class="form-control"
+                       name="answer_1"
+                       placeholder='Answer 1'
+                       ng-model="answers.answer1"
+                       ng-minlength=1
+                       required>
+
+                <div class="error-messages" ng-if="interacted(reg_form.securityQuestions.answer_1)"
+                     ng-messages="reg_form.securityQuestions.answer_1.$error">
+                  <div ng-message="required">Please provide an answer to Question 1.</div>
+                </div>
+
+              </div>
+              <label>Security Questions #2</label>
+
+              <div>
+                <select class="form-control"
+                        name="question_2"
+                        ng-model="questionSelections.question_2"
+                        ng-options="q.question for q in allQuestions  | filter:optionFilter(questionSelections.question_2)"
+                        required>
+                  <option value="">Choose...</option>
+                </select>
+
+                <br/>
+                <input type="text"
+                       class="form-control"
+                       name="answer_2"
+                       placeholder='Answer 2'
+                       ng-model="answers.answer2"
+                       ng-minlength=1
+                       required>
+
+                <div class="error-messages" ng-if="interacted(reg_form.securityQuestions.answer_2)"
+                     ng-messages="reg_form.securityQuestions.answer_2.$error">
+                  <div ng-message="required">Please provide an answer to Question 2.</div>
+                </div>
+
+              </div>
+              <label>Security Questions #3</label>
+
+              <div>
+                <select class="form-control"
+                        name="question_3"
+                        ng-model="questionSelections.question_3"
+                        ng-options="q.question for q in allQuestions  | filter:optionFilter(questionSelections.question_3)"
+                        required>
+                  <option value="">Choose...</option>
+                </select>
+
+                <br/>
+                <input type="text"
+                       class="form-control"
+                       name="answer_3"
+                       placeholder='Answer 3'
+                       ng-model="answers.answer3"
+                       ng-minlength=1
+                       required>
+
+                <div class="error-messages" ng-if="interacted(reg_form.securityQuestions.answer_3)"
+                     ng-messages="reg_form.securityQuestions.answer_3.$error">
+                  <div ng-message="required">Please provide an answer to Question 3.</div>
+                </div>
+
+              </div>
+
+            </div>
+            <!--{{questionSelections}}-->
+
+          </ng-form>
+
+
+          <button type="submit" ng-disabled="reg_form.$invalid" class="btn btn-primary">Register</button>
+        </form>
+          </div>
+          <div class="col-md-2"></div>
+      </div>
+    </ion-content>
+</ion-view>
+
+
+<script type="text/ng-template" id="password-messages">
+  <div ng-message="required">Your password is required.</div>
+  <div ng-message="minlength">Your password is required to be at least 5 characters</div>
+  <div ng-message="maxlength">Your password cannot be longer than 50 characters</div>
+</script>
+
+<script type="text/ng-template" id="firstname-messages">
+  <div ng-message="required">Your first name is required.</div>
+  <div ng-message="minlength">Your first name is required to be at least 1 character</div>
+  <div ng-message="maxlength">Your first name cannot be longer than 100 characters</div>
+</script>
+
+<script type="text/ng-template" id="lastname-messages">
+  <div ng-message="required">Your last name is required.</div>
+  <div ng-message="minlength">Your last name is required to be at least 1 character</div>
+  <div ng-message="maxlength">Your last name cannot be longer than 100 characters</div>
+</script>
+
+
+<script type="text/ng-template" id="username-messages">
+  <div ng-message="required">Your e-mail is required.</div>
+  <div ng-message="email">This is not a valid email.</div>
+  <div ng-message="minlength">Your e-mail is required to be at least 5 characters</div>
+  <div ng-message="maxlength">Your e-mail cannot be longer than 100 characters</div>
+</script>
+

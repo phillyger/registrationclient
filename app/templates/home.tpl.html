@@ -1,0 +1,39 @@
+<ion-view title="Home">
+  <!--<ion-nav-buttons side="left">-->
+  <!--<button menu-toggle="left"class="button button-icon icon ion-navicon"></button>-->
+  <!--</ion-nav-buttons>-->
+  <!--<ion-header-bar>-->
+  <!--<h1 class="title">InCircle</h1>-->
+  <!--<div class="buttons">-->
+  <!--<button class="button button-clear" ng-click="closeLogin()">Close</button>-->
+  <!--</div>-->
+  <!--</ion-header-bar>-->
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p>Welcome to InCircle!</p>
+
+        <button ng-click="openLoginModal()" class="button button-full button-calm">Sign-In</button>
+
+        <div>
+          <div>Not a member yet? 'Register' to join.</div>
+          <button ng-click="openRegisterModal()" class="button button-block button-positive">
+            Register
+          </button>
+        </div>
+        <br/>
+
+        <div>
+          Forgot your password? <a href="#/passwordReset">Reset password</a>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </ion-content>
+</ion-view>
+
+
