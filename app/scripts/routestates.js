@@ -78,8 +78,8 @@
         })
 
       ;
-      $urlRouterProvider.otherwise('/app/home');
-      //$urlRouterProvider.otherwise('/app/activate?username=phillyger@gmail.com&activationToken=38805423323709692581');
+      //$urlRouterProvider.otherwise('/app/home');
+      $urlRouterProvider.otherwise('/app/activate?username=phillyger@gmail.com&activationToken=60970461743423151453');
 
     }]);
 

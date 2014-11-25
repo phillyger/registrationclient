@@ -6,10 +6,14 @@
 
 angular.module('RegistrationClientApp')
   .controller('VerifyCtrl',
-  function ($scope, VerifySrv, $state, $stateParams, UserInfoFactory, CommonFormService) {
+  function ($scope, VerifySrv, $state, $stateParams, $ionicPopup, UserInfoFactory, CommonFormService) {
 
     $scope.vm = null;
-    //$scope.zipRegex = /^\d+$/;
+    $scope.dates = {
+      dob: null
+    };
+
+
 
     $scope.submit = CommonFormService.submit();
 
@@ -21,28 +25,69 @@ angular.module('RegistrationClientApp')
       return $scope.submitted || field.$dirty;
     };
 
+    $scope.vm = {
+      firstName: null,
+      lastName: null,
+      birthDate: null,
+      zip: null,
+      username: null
+
+    }
+
+
     $scope.verify = function () {
 
       // get the user info
       var userInfo = JSON.parse(UserInfoFactory.getUserInfo());
 
-      $scope.vm.birthDate = JSON.parse(JSON.stringify($scope.dob));  // call .parse(.stringify) to remove double quotes
+      console.log($scope.dates.dob);
+
+      $scope.vm.birthDate = JSON.parse(JSON.stringify($scope.dates.dob));  // call .parse(.stringify) to remove double quotes
       $scope.vm.username = userInfo.username;
 
-      console.log($scope.vm);
+      //return console.log($scope.vm);
       //// save data
       VerifySrv.verify.save($scope.vm,
 
         function (successResponse) {
 
-          $state.go('verify.confirmation');
+          //$state.go('verify.confirmation');
+          showVerifyAlertSuccess()
 
         }, function (errorResponse) {
-          $state.go('verify.error');
+          //$state.go('verify.error');
+          showVerifyAlertError()
         });
     };
 
+    var showVerifyAlertError = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Verify Error!!!',
+        template: 'Unable to verify account for '
+        +JSON.parse(UserInfoFactory.getUserInfo()).username
+        +'. Please verify member information.'
+      });
+      alertPopup.then(function(res) {
+        //console.log('Thank you for not eating my delicious ice cream cone');
+        //$scope.closeRegisterModal();
+      });
+    };
+
+    var showVerifyAlertSuccess = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Verification Successful!!!',
+        template: 'Successfully verified account for '
+        +JSON.parse(UserInfoFactory.getUserInfo()).username
+      });
+      alertPopup.then(function(res) {
+        //console.log('Thank you for not eating my delicious ice cream cone');
+        //$scope.closeRegisterModal();
+      });
+    };
+
   }
+
+
 
 
 
