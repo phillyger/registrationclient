@@ -218,6 +218,17 @@ angular.module('RegistrationClientApp')
     // TODO : Move this to a resolve()
     fetchQuestions();
 
+    /*
+      Handle Password Reset
+     */
+    $ionicModal.fromTemplateUrl('templates/register.tpl.html', {
+      scope: $scope,
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.registerModal = modal;
+    });
+
 
 
   });

@@ -77,9 +77,29 @@
           }
         })
 
+        .state('app.passwordReset', {
+          url: '/passwordReset',
+          views: {
+            'menuContent' :{
+              templateUrl: 'templates/password-reset.tpl.html',
+              controller: 'PasswordCtrl'
+            }
+          }
+        })
+
+        .state('app.profile', {
+          url: '/profile',
+          views: {
+            'menuContent' :{
+              templateUrl: 'templates/profile.tpl.html'
+            }
+          }
+        })
+
       ;
-      //$urlRouterProvider.otherwise('/app/home');
-      $urlRouterProvider.otherwise('/app/activate?username=phillyger@gmail.com&activationToken=60970461743423151453');
+      $urlRouterProvider.otherwise('/app/home');
+      //$urlRouterProvider.otherwise('/app/activate?username=phillyger@gmail.com&activationToken=60970461743423151453');
+      //$urlRouterProvider.otherwise('/app/verify');
 
     }]);
 

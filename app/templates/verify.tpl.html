@@ -1,8 +1,11 @@
-<ion-nav-bar class="bar-calm" animation="nav-title-slide-ios7">
-  <h1 class="title">Verify</h1>
-</ion-nav-bar>
-<!--<ion-nav-view class="slide-left-right">-->
-  <ion-view title="Verify">
+
+<ion-view title="Verify">
+  <ion-nav-bar class="bar-calm">
+    <ion-nav-buttons side="right">
+      <button class="button" ng-click="closeModal()">
+        Home
+      </button>
+    </ion-nav-buttons>
     <ion-content has-header="true" padding="true" scroll="true">
       <div class="row">
         <div class="col-md-2"></div>
@@ -120,6 +123,7 @@
         <div class="col-md-2"></div>
       </div>
     </ion-content>
+  </ion-nav-bar>
   </ion-view>
 <!--</ion-nav-view>-->
 

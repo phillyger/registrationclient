@@ -203,7 +203,7 @@ app.factory('AuthInterceptor', function AuthInterceptor(AuthTokenFactory, AUTH_T
 
 });
 
-app.factory("CommonFormService", function($http, $q, $log, URL_ENDPOINTS) {
+app.factory("CommonFormService", function($state, $http, $q, $log, URL_ENDPOINTS) {
 
   var isSubmitted = false;
 
@@ -219,6 +219,12 @@ app.factory("CommonFormService", function($http, $q, $log, URL_ENDPOINTS) {
 
   function interacted(field) {
     return isSubmitted || field.$dirty;
+  }
+
+  function closeModalAndReturnHome() {
+    //alert('Running closeModalAndReturnHome...');
+    return $state.go('app.home');
+
   }
 
   function buildSecurityQuestionsList(questions, answers) {
@@ -258,7 +264,8 @@ app.factory("CommonFormService", function($http, $q, $log, URL_ENDPOINTS) {
     submit: submit,
     interacted: interacted,
     allSecurityQuestions: allSecurityQuestions,
-    buildSecurityQuestionsList: buildSecurityQuestionsList
+    buildSecurityQuestionsList: buildSecurityQuestionsList,
+    closeModalAndReturnHome: closeModalAndReturnHome
   };
 });
 

@@ -8,7 +8,9 @@ angular.module('RegistrationClientApp')
            $scope,
            $ionicModal,
            $ionicPopup,
+           $q,
            RegisterSrv,
+           PasswordSrv,
            AuthenticationService,
            CommonFormService,
            UserInfoFactory,
@@ -112,10 +114,10 @@ angular.module('RegistrationClientApp')
       });
     };
 
-  // Registration
+    /*
+      Registration
+     */
 
-
-    //$scope.allQuestionsUrl = [];
     $scope.questionSelections = {};
     $scope.securityQuestions = null;
     $scope.vm = {
@@ -248,6 +250,165 @@ angular.module('RegistrationClientApp')
         //console.log('Thank you for not eating my delicious ice cream cone');
         $scope.closeRegisterModal();
       });
+    };
+
+    /*
+     Password Reset
+     */
+
+    // determine hide/show of nested forms.
+    $scope.showAccountValidationForm=true;
+    $scope.showAccountSecurityQuestionsForm = false;
+    $scope.showAccountPasswordResetForm = false;
+
+    $scope.resetPassword = {
+      username: null,
+      answer1: null,
+      answer2: null,
+      answer3: null,
+      newPassword: null,
+      confirmedNewPassword: null
+    };
+
+    $ionicModal.fromTemplateUrl('templates/password-reset.tpl.html', {
+      scope: $scope,
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.passwordResetModal = modal;
+    });
+
+
+    $scope.openPasswordResetModal = function() {
+      console.log('Running open password reset modal');
+
+      $scope.passwordResetModal.show();
+
+    }
+
+    $scope.closePasswordResetModal = function() {
+      $scope.passwordResetModal.hide();
+    };
+
+    $scope.showAccountPasswordReset = function() {
+      $scope.showAccountSecurityQuestionsForm = false;
+      $scope.showAccountPasswordResetForm = true;
+    };
+
+    $scope.showAccountSecurityQuestions = function () {
+
+      var result = passwordQuestions($scope.model.username);
+      console.log(result);
+      $scope.showAccountSecurityQuestionsForm = result;
+
+    };
+
+
+
+    $scope.showAccountSecurityQuestions = function () {
+
+      console.log('Running showAccountSecurityQuestions');
+      console.log($scope.resetPassword.username);
+      var result = passwordQuestions($scope.resetPassword.username);
+      console.log(result);
+      $scope.showAccountSecurityQuestionsForm = result;
+
+    };
+
+    $scope.passwordReset =  function() {
+
+      return console.log( $scope.resetPassword);
+      //return;
+      // save data
+      PasswordSrv.reset.save($scope.model,
+
+        function (successResponse) {
+          console.log('logged a success...');
+          console.log(successResponse);
+          $state.go('password-reset-confirmation');
+
+        }, function (errorResponse) {
+          console.log('logged an error...');
+          console.log(errorResponse);
+          console.log($scope.model.username);
+          $scope.error = "Unable to check for availablility! " + errorResponse;
+          $state.go('password-reset-error',  { 'username':$scope.model.username});
+        });
+    };
+
+    var isUserNameAvailable = function (username) {
+
+      console.log('Running isUserNameAvailable...');
+      var defer = $q.defer();
+
+      if (username && username.length > 0) {
+        PasswordSrv.available.get({'email': username},
+          function (successResponse) {
+            if (successResponse) {
+              $scope.available = successResponse.data.available;
+              $scope.showAccountSecurityQuestionsForm = true;
+              $scope.showAccountValidationForm = false;
+
+              // if available returns true, no matching username found -> reject.
+              return successResponse.data.available ? defer.reject('Username not found') : defer.resolve('Username found');
+
+            }
+          },
+          function (errorResponse) {
+            console.log('isLoginAvailable:error');
+            $scope.error = "Unable to check for availablility! " + errorResponse.outcome.message;
+
+            defer.reject();
+          }
+        );
+      } else {
+        $scope.available = true;
+        defer.resolve();
+      }
+
+      return defer.promise;
+
+    };
+
+    var passwordQuestions = function(username) {
+
+      var promise = isUserNameAvailable(username);
+
+      promise.then(function(status) {
+        console.log('Success: ' + status);
+        fetchQuestions(username);
+
+      }, function(reason) {
+        console.log('Failed: ' + reason);
+
+      });
+
+    };
+
+    var fetchQuestions = function (username) {
+
+      var defer = $q.defer();
+
+      if (username && username.length > 0) {
+        PasswordSrv.questions.get({'username': username},
+          function (successResponse) {
+            if (successResponse) {
+              console.log('fetchQuestions:success');
+              $scope.question_1 = successResponse.data.question1;
+              $scope.question_2 = successResponse.data.question2;
+              $scope.question_3 = successResponse.data.question3;
+
+              defer.resolve(true);
+            }
+          },
+          function (errorResponse) {
+            console.log('fetchQuestions:error');
+            $scope.error = "Unable to fetch questions! " + errorResponse.outcome;
+            defer.reject(false);
+          }
+        );
+      }
+      return defer.promise;
     };
 
   });

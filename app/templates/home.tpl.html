@@ -8,9 +8,9 @@
   <!--<button class="button button-clear" ng-click="closeLogin()">Close</button>-->
   <!--</div>-->
   <!--</ion-header-bar>-->
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+  <!--<ion-nav-buttons side="left">-->
+    <!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+  <!--</ion-nav-buttons>-->
   <ion-content padding="true">
     <div class="row">
       <div class="col-md-2"></div>
@@ -28,8 +28,13 @@
         <br/>
 
         <div>
-          Forgot your password? <a href="#/passwordReset">Reset password</a>
+          Forgot your password? <a ng-click="openPasswordResetModal()">Reset password</a>
         </div>
+        <br/>
+        <div>
+          Verify User? <a href="#/app/verify">Verify</a>
+        </div>
+
       </div>
       <div class="col-md-2"></div>
     </div>

@@ -60,6 +60,11 @@ angular.module('RegistrationClientApp')
         });
     };
 
+
+    $scope.closeModal = function() {
+      return CommonFormService.closeModalAndReturnHome();
+    }
+
     var showVerifyAlertError = function() {
       var alertPopup = $ionicPopup.alert({
         title: 'Verify Error!!!',
