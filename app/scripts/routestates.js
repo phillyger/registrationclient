@@ -11,7 +11,7 @@
         .state('app', {
           url: "/app",
           abstract: true,
-          templateUrl: "templates/menu.tpl.html",
+          template: " <ion-nav-view name=\"homeContent\" animation=\"slide-left-right\"></ion-nav-view>",
           controller: "AppCtrl"
         })
 
@@ -23,23 +23,53 @@
             }
           },
           views: {
-            'menuContent' :{
+            'homeContent' :{
               templateUrl: "templates/home.tpl.html",
               controller: 'HomeCtrl'
             }
           }
         })
 
-        .state('app.main', {
-          url: "/main",
+        .state('tabs', {
+          url: "/tabs",
+          abstract: true,
+          //templateUrl: "templates/menu.tpl.html",
+          templateUrl: "templates/tabs.tpl.html",
+          controller: "AppCtrl"
+        })
+
+
+
+        .state('tabs.home', {
+          url: "/home",
           views: {
-            'menuContent' :{
-              templateUrl: "templates/main.tpl.html",
+            'home-tab': {
+              templateUrl: "templates/tabs.main.tpl.html",
               controller: 'MainCtrl'
             }
           }
         })
 
+        .state('tabs.about', {
+          url: "/about",
+          views: {
+            'about-tab': {
+              templateUrl: "templates/tabs.about.tpl.html",
+              controller: 'MainCtrl'
+            }
+          }
+        })
+
+
+        .state('tabs.contact', {
+          url: "/contact",
+          views: {
+            'contact-tab': {
+              templateUrl: "templates/tabs.contact.tpl.html",
+              controller: 'MainCtrl'
+            }
+          }
+        })
 
         .state('logout', {
           url: '/logout',
