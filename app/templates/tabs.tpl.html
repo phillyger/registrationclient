@@ -1,19 +1,15 @@
-<ion-nav-bar class="bar-calm">
-  <ion-nav-back-button class="button-icon ion-arrow-left-c">
-  </ion-nav-back-button>
-</ion-nav-bar>
 
-<ion-tabs class="tabs-icon-top tabs-calm">
+<ion-tabs tabs-style="tabs-icon-top" tabs-type="tabs-positive">
 
-  <ion-tab title="My InCircle" icon="ion-home" ui-sref="tabs.home">
+  <ion-tab title="Home" icon="ion-home" href="#/main/tab/home">
     <ion-nav-view name="home-tab"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab title="+ InCircle" icon="ion-ios7-information" ui-sref="tabs.about">
+  <ion-tab title="About" icon="ion-ios7-information" href="#/main/tab/about">
     <ion-nav-view name="about-tab"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab title="Suggested" icon="ion-ios7-world" ui-sref="tabs.contact">
+  <ion-tab title="Contact" icon="ion-ios7-world" ui-sref="main.tabs.contact">
     <ion-nav-view name="contact-tab"></ion-nav-view>
   </ion-tab>
 

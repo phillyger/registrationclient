@@ -30,17 +30,34 @@
           }
         })
 
-        .state('tabs', {
-          url: "/tabs",
+        .state('main', {
+          url: "/main",
           abstract: true,
-          //templateUrl: "templates/menu.tpl.html",
-          templateUrl: "templates/tabs.tpl.html",
-          controller: "AppCtrl"
+          templateUrl: "templates/menu.tpl.html"
         })
 
+        .state('main.tabs', {
+          url: "/tab",
+          abstract: true,
+          views: {
+            'menu-content': {
+              templateUrl: "templates/tabs.tpl.html",
+              controller: "MainCtrl"
+            }
+          }
+        })
+
+        //.state('tabs', {
+        //  url: "/tabs",
+        //  abstract: true,
+        //  //templateUrl: "templates/menu.tpl.html",
+        //  templateUrl: "templates/tabs.tpl.html",
+        //  controller: "AppCtrl"
+        //})
 
 
-        .state('tabs.home', {
+
+        .state('main.tabs.home', {
           url: "/home",
           views: {
             'home-tab': {
@@ -50,7 +67,7 @@
           }
         })
 
-        .state('tabs.about', {
+        .state('main.tabs.about', {
           url: "/about",
           views: {
             'about-tab': {
@@ -61,7 +78,7 @@
         })
 
 
-        .state('tabs.contact', {
+        .state('main.tabs.contact', {
           url: "/contact",
           views: {
             'contact-tab': {
